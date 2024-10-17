@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Work+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <title>Weather App</title>
+    <script src="tilt.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <div class="hamburger-menu">☰</div>
+                <div class="logo">Weather App</div>
+            </div>
+            <div class="header-center">
+                <div class="search-bar">
+                    <input type="text" id="cityInput" placeholder="Search...">
+                    <button id="search-btn"><i class="fas fa-search">
+                        </i></button>
+                </div>
+
+
+            </div>
+            <div class="header-right">
+                <div class="user-profile">
+                    <span class="username">Hassan Ilyas</span>
+                    <div class="user-pic"></div>
+                </div>
+            </div>
+        </header>
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="hamburger-menu close-sidebar">Weather App ☰</div>
+            </div>
+            <a class="sidebar-item" id="dashboard">Dashboard</a>
+            <a class="sidebar-item" id="sidetable">Tables</a>
+
+        </aside>
+        <main class="main-content">
+            <div class="weather-data">
+                <div id="weather-container">
+
+                </div>
+
+            </div>
+
+            <div class="charts">
+                <div class="chart">
+                    <h3>Vertical Bar Chart</h3>
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="chart">
+                    <h3>Doughnut Chart</h3>
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+                <div class="chart">
+                    <h3>Line Chart</h3>
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+
+
+            <div class="flex-container">
+                <div class="left-container">
+                    <div class="weather-table-container" style=" display: flex;  column-gap: 30px;">
+                    </div>
+
+                    <div class="filter-options">
+                        <select id="sortBy">
+                            <option value="default">Sort By</option>
+                            <option value="temperatureAsc">Temperature Ascending</option>
+                            <option value="temperatureDesc">Temperature Descending</option>
+                            <option value="highesttemp">highest Temperature Day</option>
+                            <option value="lowesttemp">LowestTemperature Day</option>
+                            <option value="Norain">Show Days with Rain</option>
+                        </select>
+
+
+                        <button class="filter-btn" id="applySort">Apply Sort</button>
+                        <button class="filter-btn" id="clearFilters">Clear Filters</button>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="filter-btn" id="prevPage" disabled>Previous</button>
+                        <span id="pageInfo"></span>
+                        <button class="filter-btn" id="nextPage">Next</button>
+                    </div>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-list"></div>
+                    <form class="typing-form">
+                        <input class="typing-input" type="text" placeholder="Type a message...">
+                        <button id="chat-submit" type="submit">Send</button>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+    </div>
+    <div class="city-not-found-popup" id="cityNotFoundPopup">
+        <p>City not found! Please check the spelling and try again.</p>
+        <button id="closePopupBtn">Close</button>
+    </div>
+
+    </main>
+    </div>
+    <div class="overlay"></div>
+    <script src="custom.js"></script>
+
+
+
+    <script>
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const weatherData = document.querySelector('.weather-data');
+            const charts = document.querySelector('.charts');
+            const flexContainer = document.querySelector('.flex-container');
+
+            weatherData.style.display = 'block';
+            charts.style.display = 'grid';
+            flexContainer.style.display = 'none';  // Hide flex container
+
+            document.getElementById('dashboard').addEventListener('click', () => {
+                weatherData.style.display = 'block';
+                charts.style.display = 'grid';
+                flexContainer.style.display = 'none';
+
+                console.log('Dashboard clicked: ', {
+                    weatherData: weatherData.style.display,
+                    charts: charts.style.display,
+                    flexContainer: flexContainer.style.display,
+                });
+            });
+
+            document.getElementById('sidetable').addEventListener('click', () => {
+
+                weatherData.style.display = 'none';
+                charts.style.display = 'none';
+                flexContainer.style.display = 'flex';
+              
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
